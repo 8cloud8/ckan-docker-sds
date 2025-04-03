@@ -11,6 +11,7 @@ services:
     build:
       context: nginx/
       dockerfile: Dockerfile
+    container_name: nginx
     networks:
       - webnet
       - ckannet
@@ -19,13 +20,14 @@ services:
         condition: service_healthy
     ports:
       - "0.0.0.0:${NGINX_SSLPORT_HOST}:${NGINX_SSLPORT}"
-    
+
   ckan:
     build:
       context: ckan/
       dockerfile: Dockerfile
       args:
         - TZ=${TZ}
+    container_name: ckan
     networks:
       - ckannet
       - dbnet
@@ -50,7 +52,9 @@ services:
       interval: 60s
       timeout: 10s
       retries: 3
-    
+    ports:
+      - "127.0.0.1:5000:5000"
+
   datapusher:
     networks:
       - ckannet
@@ -66,6 +70,7 @@ services:
   db:
     build:
       context: postgresql/
+    container_name: db
     networks:
       - dbnet
     environment:
@@ -83,11 +88,12 @@ services:
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}"]
-     
+
   solr:
     networks:
       - solrnet
     image: ckan/ckan-solr:${SOLR_IMAGE_VERSION}
+    container_name: solr
     volumes:
       - solr_data:/var/solr
     restart: unless-stopped
@@ -101,7 +107,7 @@ services:
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "redis-cli", "-e", "QUIT"]
-    
+
 networks:
   webnet:
   ckannet:

@@ -1,0 +1,3 @@
+ckan.foo.bar {
+    reverse-proxy ckan:5000
+}
