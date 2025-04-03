@@ -15,6 +15,9 @@ docker:
 healthcheck:
 	docker inspect $(APP) --format "{{ (index (.State.Health.Log) 0).Output }}"
 
+stats:
+	docker stats --no-stream
+
 test:
 	uv run pytest --verbose
 
