@@ -3,6 +3,16 @@ FROM ckan/ckan-base:2.11
 # Install any extensions needed by your CKAN instance
 # See Dockerfile.dev for more details and examples
 
+USER root
+
+### DCAT ###
+RUN  pip3 install -e git+https://github.com/ckan/ckanext-dcat.git@v2.3.0#egg=ckanext-dcat && \
+    pip3 install -r https://raw.githubusercontent.com/ckan/ckanext-dcat/v2.3.0/requirements.txt
+
+
+RUN pip install -e "git+https://github.com/ckan/ckanext-scheming.git#egg=ckanext-scheming"
+
+
 # Copy custom initialization scripts
 COPY --chown=ckan-sys:ckan-sys docker-entrypoint.d/* /docker-entrypoint.d/
 
