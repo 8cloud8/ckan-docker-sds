@@ -11,8 +11,10 @@ docker: patch
 	docker-compose up $(OPTIONS) -d
 
 patch:
-	#cp -f .env.example .env
-	patch -p1 < .env.patch
+	git co .env.example
+	patch -p1 < patch.env
+	cp -f .env.example .env
+	git co .env.example
 
 %:
 	docker-compose up $(OPTIONS) $@ -d
