@@ -1,12 +1,18 @@
 MAKEFLAGS += --silent
 
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
+
 OPTIONS ?= --build --remove-orphans #--force-recreate
 APP ?= ckan
 
-.PHONY: docker healthcheck local sync test clean
+.PHONY: docker patch healthcheck local sync test clean
 
-docker:
+docker: patch
 	docker-compose up $(OPTIONS) -d
+
+patch:
+	#cp -f .env.example .env
+	patch -p1 < .env.patch
 
 %:
 	docker-compose up $(OPTIONS) $@ -d
@@ -19,7 +25,7 @@ stats:
 	docker stats --no-stream
 
 test:
-	uv run pytest --verbose
+	PYTHONPATH=. uv run pytest --verbose
 
 clean:
 	docker-compose down --remove-orphans -v --rmi local
