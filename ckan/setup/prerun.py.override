@@ -66,15 +66,15 @@ def check_db_connection(conn_str, retry=None):
 
 def check_solr_connection(retry=None):
 
+    url = os.environ.get("CKAN_SOLR_URL")
+    if not url:
+        print("[prerun] CKAN_SO_URL not defined, not checking solr")
+
     if retry is None:
         retry = RETRY
     elif retry == 0:
         print("[prerun] Giving up after 5 tries...")
         sys.exit(1)
-
-    url = os.environ.get("CKAN_SOLR_URL")
-    if not url:
-        print("[prerun] CKAN_SO_URL not defined, not checking solr")
 
     search_url = '{url}/schema/name?wt=json'.format(url=url)
 
