@@ -68,7 +68,8 @@ def check_solr_connection(retry=None):
 
     url = os.environ.get("CKAN_SOLR_URL")
     if not url:
-        print("[prerun] CKAN_SO_URL not defined, not checking solr")
+        print("[prerun] CKAN_SOLR_URL not defined, not checking solr")
+        return
 
     if retry is None:
         retry = RETRY
