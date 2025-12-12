@@ -16,10 +16,10 @@ services:
           bash -x /test/e2e.sh
         fi
     environment:
-      URL: api:8080
+      URL: ckan:5000
     volumes:
       - ./tests:/test
     depends_on:
       # should match service name of your app:
-     api:
+     ckan:
         condition: service_started
