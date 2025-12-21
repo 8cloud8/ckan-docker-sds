@@ -6,7 +6,6 @@ volumes:
   site_packages:
 
 services:
-
   nginx:
     build:
       context: nginx/
@@ -41,7 +40,7 @@ services:
       solr:
         condition: service_healthy
       redis:
-        condition: service_healthy
+        condition: service_started
     volumes:
       - ckan_storage:/var/lib/ckan
       - pip_cache:/root/.cache/pip
@@ -53,7 +52,7 @@ services:
       timeout: 10s
       retries: 3
     ports:
-      - "127.0.0.1:5000:5000"
+      - "127.0.0.1:5001:5000"
 
   datapusher:
     networks:
@@ -61,6 +60,7 @@ services:
       - dbnet
     image: ckan/ckan-base-datapusher:${DATAPUSHER_VERSION}
     restart: unless-stopped
+    container_name: datapusher
     healthcheck:
       test: ["CMD", "wget", "-qO", "/dev/null", "http://localhost:8800"]
       interval: 60s
@@ -70,9 +70,12 @@ services:
   db:
     build:
       context: postgresql/
+      dockerfile: Dockerfile
     container_name: db
     networks:
       - dbnet
+    env_file:
+      - .env
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
@@ -93,6 +96,7 @@ services:
     networks:
       - solrnet
     image: ckan/ckan-solr:${SOLR_IMAGE_VERSION}
+    platform: linux/amd64
     container_name: solr
     volumes:
       - solr_data:/var/solr
@@ -101,12 +105,14 @@ services:
       test: ["CMD", "wget", "-qO", "/dev/null", "http://localhost:8983/solr/"]
 
   redis:
-    image: redis:${REDIS_VERSION}
+    image: redis:${REDIS_VERSION:-6.2-alpine}
+    platform: linux/amd64
+    container_name: redis
+    environment:
+      - SKIP_FIX_PERMS=1 # needed for alpine image
     networks:
       - redisnet
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "redis-cli", "-e", "QUIT"]
 
 networks:
   webnet:
