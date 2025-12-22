@@ -31,9 +31,11 @@ jobs:
     - name: Setup environment
       run: make patch
 
+    - name: Resolve compose config 
+      run: docker compose config
+    
     - name: Start services (avoid rebuild when possible)
       run: |
-        # Try to use existing images first to avoid unnecessary rebuilds
         docker compose pull --ignore-pull-failures || true
         docker compose up -d --no-build || {
           echo "Could not start with existing images, building..."
