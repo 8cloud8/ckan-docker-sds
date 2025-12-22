@@ -1,0 +1,220 @@
+datasets:
+  - name: covid-19-vaccination-data
+    title: "COVID-19 Vaccination Data - European Health Survey"
+    notes: |
+      Comprehensive dataset containing COVID-19 vaccination statistics across European Union member states.
+      This dataset follows HealthDCAT-AP standards for health data interoperability and includes
+      vaccination rates, demographic breakdowns, and temporal analysis data.
+    tags:
+      - name: covid-19
+      - name: vaccination
+      - name: public-health
+      - name: european-union
+      - name: health-statistics
+    contact:
+      - name: "European Centre for Disease Prevention and Control"
+        email: "data-contact@ecdc.europa.eu"
+        uri: "https://ecdc.europa.eu"
+        identifier: "ECDC-EU"
+    theme:
+      - "public-health"
+      - "epidemiology"
+      - "vaccination"
+    publisher_name: "European Centre for Disease Prevention and Control"
+    publisher_email: "info@ecdc.europa.eu"
+    publisher_url: "https://ecdc.europa.eu"
+    license_id: "cc-by"
+    spatial: "European Union"
+    temporal_start: "2020-12-01"
+    temporal_end: "2023-12-31"
+    language: "en"
+    access_rights: "public"
+    conforms_to: "HealthDCAT-AP v1.0"
+    resources:
+      - name: "Vaccination Data CSV"
+        url: "https://example.com/covid-vaccination-data.csv"
+        format: "CSV"
+        description: "Main vaccination dataset in CSV format"
+        mimetype: "text/csv"
+      - name: "Vaccination Data API"
+        url: "https://api.example.com/vaccination-data"
+        format: "API"
+        description: "REST API endpoint for vaccination data"
+        mimetype: "application/json"
+
+  - name: cancer-registry-statistics
+    title: "European Cancer Registry - Annual Statistics"
+    notes: |
+      Annual cancer incidence and mortality statistics compiled from national cancer registries
+      across European Union member states. Data follows HealthDCAT-AP profile for enhanced
+      discoverability and interoperability in health data systems.
+    tags:
+      - name: cancer
+      - name: oncology
+      - name: registry-data
+      - name: health-statistics
+      - name: mortality
+      - name: incidence
+    contact:
+      - name: "European Cancer Information System"
+        email: "ecis@ec.europa.eu"
+        uri: "https://ecis.jrc.ec.europa.eu"
+        identifier: "ECIS-JRC"
+    theme:
+      - "oncology"
+      - "public-health"
+      - "epidemiology"
+    publisher_name: "European Commission Joint Research Centre"
+    publisher_email: "jrc-info@ec.europa.eu"
+    publisher_url: "https://ec.europa.eu/jrc"
+    license_id: "cc-by-nc"
+    spatial: "European Union"
+    temporal_start: "2010-01-01"
+    temporal_end: "2022-12-31"
+    language: "en"
+    access_rights: "restricted"
+    conforms_to: "HealthDCAT-AP v1.0"
+    data_protection_level: "statistical"
+    resources:
+      - name: "Cancer Statistics Dataset"
+        url: "https://example.com/cancer-statistics.xlsx"
+        format: "XLSX"
+        description: "Comprehensive cancer statistics in Excel format"
+        mimetype: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      - name: "Metadata Documentation"
+        url: "https://example.com/cancer-data-documentation.pdf"
+        format: "PDF"
+        description: "Detailed documentation and metadata"
+        mimetype: "application/pdf"
+
+  - name: mental-health-wellbeing-survey
+    title: "Mental Health and Wellbeing Population Survey"
+    notes: |
+      Large-scale population survey on mental health and wellbeing indicators across multiple
+      European countries. Dataset includes demographic variables, mental health indicators,
+      and social determinants of health. Compliant with HealthDCAT-AP for health data standards.
+    tags:
+      - name: mental-health
+      - name: wellbeing
+      - name: population-survey
+      - name: social-determinants
+      - name: health-indicators
+    contact:
+      - name: "European Health Observatory"
+        email: "observatory@who-euro.org"
+        uri: "https://gateway.euro.who.int"
+        identifier: "WHO-EURO-OBS"
+    theme:
+      - "mental-health"
+      - "public-health"
+      - "social-health"
+    publisher_name: "WHO Regional Office for Europe"
+    publisher_email: "contact@euro.who.int"
+    publisher_url: "https://www.euro.who.int"
+    license_id: "cc-by-sa"
+    spatial: "Europe"
+    temporal_start: "2022-01-01"
+    temporal_end: "2022-12-31"
+    language: "en"
+    access_rights: "public"
+    conforms_to: "HealthDCAT-AP v1.0"
+    ethical_approval: "Approved by European Research Ethics Committee"
+    resources:
+      - name: "Survey Response Data"
+        url: "https://example.com/mental-health-survey-data.json"
+        format: "JSON"
+        description: "Anonymized survey responses in JSON format"
+        mimetype: "application/json"
+      - name: "Survey Methodology"
+        url: "https://example.com/survey-methodology.html"
+        format: "HTML"
+        description: "Detailed survey methodology and sampling approach"
+        mimetype: "text/html"
+
+  - name: pharmaceutical-adverse-events
+    title: "Pharmaceutical Adverse Events Database"
+    notes: |
+      Database of adverse drug reactions and medical device incidents reported across
+      European regulatory agencies. Data structured according to HealthDCAT-AP standards
+      for pharmaceutical safety and pharmacovigilance purposes.
+    tags:
+      - name: pharmacovigilance
+      - name: adverse-events
+      - name: drug-safety
+      - name: medical-devices
+      - name: regulatory-data
+    contact:
+      - name: "European Medicines Agency"
+        email: "safety@ema.europa.eu"
+        uri: "https://ema.europa.eu"
+        identifier: "EMA-EU"
+    theme:
+      - "pharmacovigilance"
+      - "drug-safety"
+      - "regulatory"
+    publisher_name: "European Medicines Agency"
+    publisher_email: "info@ema.europa.eu"
+    publisher_url: "https://ema.europa.eu"
+    license_id: "other-open"
+    spatial: "European Economic Area"
+    temporal_start: "2018-01-01"
+    temporal_end: "2024-01-01"
+    language: "en"
+    access_rights: "restricted"
+    conforms_to: "HealthDCAT-AP v1.0"
+    data_protection_level: "confidential"
+    resources:
+      - name: "Adverse Events Database"
+        url: "https://secure.example.com/adverse-events-db"
+        format: "Database"
+        description: "Secure database access for adverse events data"
+        access_url: "https://portal.example.com/adr-access"
+      - name: "Reporting Guidelines"
+        url: "https://example.com/adr-reporting-guidelines.pdf"
+        format: "PDF"
+        description: "Guidelines for adverse event reporting"
+        mimetype: "application/pdf"
+
+  - name: health-system-performance-indicators
+    title: "Health System Performance Indicators - EU Benchmarking"
+    notes: |
+      Comprehensive collection of health system performance indicators used for benchmarking
+      and policy analysis across EU member states. Data includes healthcare quality, efficiency,
+      and accessibility metrics following HealthDCAT-AP specifications.
+    tags:
+      - name: health-systems
+      - name: performance-indicators
+      - name: benchmarking
+      - name: healthcare-quality
+      - name: policy-analysis
+    contact:
+      - name: "European Observatory on Health Systems"
+        email: "observatory@obs.who-euro.org"
+        uri: "https://eurohealthobservatory.who.int"
+        identifier: "WHO-EURO-HSPM"
+    theme:
+      - "health-systems"
+      - "healthcare-policy"
+      - "performance-measurement"
+    publisher_name: "European Observatory on Health Systems and Policies"
+    publisher_email: "info@obs.who-euro.org"
+    publisher_url: "https://eurohealthobservatory.who.int"
+    license_id: "cc-by"
+    spatial: "European Union"
+    temporal_start: "2019-01-01"
+    temporal_end: "2023-12-31"
+    language: "en"
+    access_rights: "public"
+    conforms_to: "HealthDCAT-AP v1.0"
+    update_frequency: "annual"
+    resources:
+      - name: "Performance Indicators Dashboard"
+        url: "https://dashboard.example.com/health-performance"
+        format: "Dashboard"
+        description: "Interactive dashboard for health system performance indicators"
+        mimetype: "text/html"
+      - name: "Indicator Definitions"
+        url: "https://example.com/indicator-definitions.xml"
+        format: "XML"
+        description: "Formal definitions and metadata for all indicators"
+        mimetype: "application/xml"

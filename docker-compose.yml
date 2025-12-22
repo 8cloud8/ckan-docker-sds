@@ -72,6 +72,7 @@ services:
       context: postgresql/
       dockerfile: Dockerfile
     container_name: db
+    platform: linux/amd64
     networks:
       - dbnet
     env_file:
@@ -113,6 +114,27 @@ services:
     networks:
       - redisnet
     restart: unless-stopped
+
+  # HealthDCAT-AP Testing Service
+  healthdcat-tests:
+    build:
+      context: tests/healthdcat
+      dockerfile: Dockerfile
+    container_name: healthdcat-tests
+    networks:
+      - ckannet
+    depends_on:
+      ckan:
+        condition: service_healthy
+    volumes:
+      - ./tests/healthdcat:/app/tests
+      - ./tests/healthdcat/reports:/app/reports
+    environment:
+      - CKAN_URL=http://ckan:5000
+      - PYTHONPATH=/app
+    profiles:
+      - testing
+    command: ["python", "-m", "pytest", "/app/tests/test_healthdcat_e2e.py", "-v", "--html=/app/reports/test-report.html", "--json-report-file=/app/reports/test-report.json"]
 
 networks:
   webnet:
