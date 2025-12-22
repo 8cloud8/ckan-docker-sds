@@ -59,7 +59,12 @@ jobs:
 
     - name: Run HealthDCAT-AP Tests
       run: |
-        PYTHONPATH=tests/healthdcat uv run pytest --verbose tests/healthdcat
+        mkdir -p tests/healthdcat/reports
+        PYTHONPATH=tests/healthdcat uv run pytest --verbose tests/healthdcat \
+          --json-report \
+          --json-report-file=tests/healthdcat/reports/healthdcat-test-report.json \
+          --html=tests/healthdcat/reports/healthdcat-test-report.html \
+          --self-contained-html
 
     - name: Upload test reports
       if: always()
