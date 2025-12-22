@@ -41,7 +41,7 @@ jobs:
         timeout 300 bash -c 'until curl -s -f http://localhost:5001/api/action/status_show > /dev/null; do sleep 5; echo "Waiting..."; done'
 
     - name: Test CKAN connectivity
-      run: ./tests/curl_test_dataset.sh
+      run: bash -x ./tests/curl_test_dataset.sh
 
     - name: Install test dependencies
       run: |
