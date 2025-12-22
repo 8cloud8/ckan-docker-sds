@@ -20,7 +20,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.10'
+        python-version: '3.12'
 
     - name: Setup environment
       run: make patch
@@ -28,11 +28,11 @@ jobs:
     - name: Start services (avoid rebuild when possible)
       run: |
         # Try to use existing images first to avoid unnecessary rebuilds
-        docker-compose pull --ignore-pull-failures || true
-        docker-compose up -d --no-build || {
+        docker compose pull --ignore-pull-failures || true
+        docker compose up -d --no-build || {
           echo "Could not start with existing images, building..."
-          docker-compose build
-          docker-compose up -d
+          docker compose build
+          docker compose up -d
         }
 
     - name: Wait for CKAN to be ready
@@ -45,14 +45,13 @@ jobs:
 
     - name: Install test dependencies
       run: |
-        cd tests/healthdcat
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        python -m pip install uv
+        uv sync --group dev
 
     - name: Run HealthDCAT-AP Tests
       run: |
-        cd tests/healthdcat
-        PYTHONPATH=. uv run pytest --verbose
+        PYTHONPATH=tests/healthdcat uv run pytest --verbose tests/healthdcat
 
     - name: Upload test reports
       if: always()
@@ -66,13 +65,14 @@ jobs:
       if: failure()
       run: |
         echo "=== Service Status ==="
-        make stats
+        docker compose ps
+        docker stats --no-stream || true
         echo "=== CKAN Logs ==="
         docker compose logs ckan --tail 50
 
     - name: Cleanup
       if: always()
-      run: make clean
+      run: docker compose down --remove-orphans -v --rmi local
 
   test-results-summary:
     runs-on: ubuntu-latest

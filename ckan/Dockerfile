@@ -1,4 +1,6 @@
-# https://github.com/ckan/ckan-docker-base/blob/main/ckan-2.11/Dockerfile
+# https://github.com/ckan/ckanext-dcat/pull/326
+
+# https://raw.githubusercontent.com/ckan/ckan-docker-base/refs/heads/main/ckan-2.11/Dockerfile
 ARG CKAN_VERSION=2.11
 
 FROM --platform=linux/amd64 ckan/ckan-base:${CKAN_VERSION} AS builder
@@ -30,7 +32,7 @@ RUN for d in $APP_DIR/patches/*; do \
         fi ; \
     done
 
-FROM --platform=linux/amd64 ckan/ckan-base:2.11 AS final
+FROM --platform=linux/amd64 ckan/ckan-base:${CKAN_VERSION} AS final
 LABEL description="CKAN Docker image with HealthDCAT-AP profile and Scheming extension"
 
 ENV CKAN__PLUGINS="dcat dcat_json_interface \
