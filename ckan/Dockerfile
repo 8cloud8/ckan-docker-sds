@@ -1,7 +1,9 @@
-# https://github.com/ckan/ckan-docker-base/blob/main/ckan-2.11/Dockerfile
+# https://github.com/ckan/ckanext-dcat/pull/326
 
-# Build stage - Install extensions and apply patches
-FROM --platform=linux/amd64 ckan/ckan-base:2.11 AS builder
+# https://raw.githubusercontent.com/ckan/ckan-docker-base/refs/heads/main/ckan-2.11/Dockerfile
+ARG CKAN_VERSION=2.11
+
+FROM --platform=linux/amd64 ckan/ckan-base:${CKAN_VERSION} AS builder
 
 # Install any extensions needed by your CKAN instance
 # See Dockerfile.dev for more details and examples
@@ -9,8 +11,8 @@ FROM --platform=linux/amd64 ckan/ckan-base:2.11 AS builder
 USER root
 
 ### ckanext-dcat ###
-ARG CKANEXT_DCAT_VER
-ENV CKANEXT_DCAT_VER=${CKANEXT_DCAT_VER:-v2.4.2}
+ARG CKANEXT_DCAT_VER=v2.4.2
+ENV CKANEXT_DCAT_VER=${CKANEXT_DCAT_VER}
 RUN  pip3 install -e git+https://github.com/ckan/ckanext-dcat.git@$CKANEXT_DCAT_VER#egg=ckanext-dcat && \
     pip3 install -r https://raw.githubusercontent.com/ckan/ckanext-dcat/$CKANEXT_DCAT_VER/requirements.txt
 
@@ -30,7 +32,7 @@ RUN for d in $APP_DIR/patches/*; do \
         fi ; \
     done
 
-FROM --platform=linux/amd64 ckan/ckan-base:2.11 AS final
+FROM --platform=linux/amd64 ckan/ckan-base:${CKAN_VERSION} AS final
 LABEL description="CKAN Docker image with HealthDCAT-AP profile and Scheming extension"
 
 ENV CKAN__PLUGINS="dcat dcat_json_interface \

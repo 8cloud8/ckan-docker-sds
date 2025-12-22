@@ -1,0 +1,17 @@
+[project]
+name = "ckan-docker-healthdcat"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "pytest-html>=3.1.0",
+    "pytest-json-report>=1.5.0",
+    "python-dotenv>=0.19.0",
+    "pyyaml>=6.0",
+    "requests>=2.32.5",
+]

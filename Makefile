@@ -11,10 +11,10 @@ docker: patch
 	docker-compose up $(OPTIONS) -d
 
 patch:
-	git co .env.example
+	git checkout .env.example
 	patch -p1 < patch.env
 	cp -f .env.example .env
-	git co .env.example
+	git checkout .env.example
 
 %:
 	docker-compose up $(OPTIONS) $@ -d
@@ -26,7 +26,7 @@ healthcheck:
 stats:
 	docker stats --no-stream
 
-test:
+test: docker
 	PYTHONPATH=. uv run pytest --verbose
 
 clean:
